@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | chael2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- 가상 스캔라인 -->
+<div class="scan-line"></div>
+
+<div class="page-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- 내비게이션 -->
+<nav>
+  <div class="logo">chael2.dev</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="github.html">GitHub</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="team.html">Team</a></li>
+  </ul>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="blog.html">Blog</a>
+  <a href="github.html">GitHub</a>
+  <a href="projects.html">Projects</a>
+  <a href="team.html">Team</a>
+</div>
+
+<!-- 서브페이지 히어로 -->
+<div class="sub-hero">
+  <div class="sub-hero-inner">
+    <p class="section-label">Profile</p>
+    <h1>About <span style="background:linear-gradient(135deg,var(--secondary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent">Me</span></h1>
+    <p>어제보다 오늘 더 안전한 세상을 만들기 위해, 오늘도 탐구하고 성장하는 보안 분석가 함유진입니다.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-top:0">
+  <div class="about-layout">
+
+    <!-- 좌측 사이드(프로필 카드) -->
+    <div class="sticky-column">
+      <div class="card profile-card glow-card reveal">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <img src="image/pro.jpg" alt="프로필" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:3rem">👩‍💻</span>
+          </div>
+        </div>
+        <div class="profile-name">함유진</div>
+        <div class="profile-role">Information Security · chael2</div>
+        <div class="profile-links">
+          <a href="https://github.com/chael2" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://chael2.tistory.com/" target="_blank"><i class="fas fa-rss"></i> Blog</a>
+          <a href="mailto:chael2@security.ac.kr"><i class="fas fa-envelope"></i> Mail</a>
+        </div>
+      </div>
+
+      <!-- 관심 정보 분야 -->
+      <div class="card glow-card reveal" style="padding:28px; margin-top:24px;">
+        <div class="section-label" style="margin-bottom:16px;">Core Fields</div>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:36px; height:36px; background:rgba(217,70,239,0.12); border:1px solid rgba(217,70,239,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--secondary);"><i class="fas fa-bug"></i></div>
+            <span style="font-size:0.88rem; font-weight:500;">악성코드 분석 (Malware Analysis)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:36px; height:36px; background:rgba(6,182,212,0.12); border:1px solid rgba(6,182,212,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--accent);"><i class="fas fa-shield-halved"></i></div>
+            <span style="font-size:0.88rem; font-weight:500;">웹 시스템 보안 (Web Security)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:36px; height:36px; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--gold);"><i class="fab fa-linux"></i></div>
+            <span style="font-size:0.88rem; font-weight:500;">리눅스 시스템 관리 (Linux System)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:36px; height:36px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--success);"><i class="fas fa-code"></i></div>
+            <span style="font-size:0.88rem; font-weight:500;">안전한 프론트엔드 (Web Development)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 우측 본문 (기술 정보 및 방명록) -->
+    <div>
+      
+      <!-- 자기 소개 -->
+      <div class="card glow-card reveal" style="padding:36px; margin-bottom:28px;">
+        <div class="section-label" style="margin-bottom:14px;">Introduction</div>
+        <h2 style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; margin-bottom:16px;">안녕하세요, <span>함유진</span>입니다.</h2>
+        <p style="color:var(--muted); line-height:1.8; font-size:0.92rem;">
+          정보보호학을 공부하며 끊임없이 문제를 분석하고 해결책을 찾아 기록하는 학생입니다. 시스템 내부에서 일어나는 비정상적인 흐름을 추적하는 악성코드 분석에 강한 매력을 느끼고 있습니다.
+          <br><br>
+          안전하고 정교한 웹 개발과 프론트엔드 기술을 통해 몸소 구현함으로써, 실질적인 코드 레벨에서의 방어 수단을 고민하고 학습 성과를 증명해 나가고 있습니다.
+        </p>
+      </div>
+
+
+      <!-- 상세 테크 스택 배지 -->
+      <div class="card glow-card reveal" style="padding:36px; margin-bottom:28px;">
+        <div class="section-label" style="margin-bottom:16px;">Tech Stack Logs</div>
+        <div class="tech-grid">
+          <span class="tech-badge"><i class="fab fa-html5" style="color:#e34f26"></i> HTML5</span>
+          <span class="tech-badge"><i class="fab fa-css3-alt" style="color:#264de4"></i> CSS3</span>
+          <span class="tech-badge"><i class="fab fa-js" style="color:#f7df1e"></i> JavaScript</span>
+          <span class="tech-badge"><i class="fab fa-python" style="color:#3776ab"></i> Python</span>
+          <span class="tech-badge"><i class="fab fa-java" style="color:#007396"></i> Java</span>
+          <span class="tech-badge"><i class="fas fa-code" style="color:#a8b5c0"></i> C / C++</span>
+          <span class="tech-badge"><i class="fab fa-linux"></i> Linux</span>
+          <span class="tech-badge"><i class="fas fa-database" style="color:#4479a1"></i> MySQL</span>
+          <span class="tech-badge"><i class="fab fa-github"></i> Git / GitHub</span>
+          <span class="tech-badge"><i class="fas fa-shield-halved" style="color:var(--secondary)"></i> Kali Linux</span>
+          <span class="tech-badge"><i class="fas fa-server" style="color:var(--accent)"></i> VMware</span>
+        </div>
+      </div>
+
+      <!-- 학습 흔적 로그 타임라인 (Study Timeline Logs) -->
+      <div class="card glow-card reveal" style="padding:36px; margin-bottom:28px;">
+        <div class="section-label" style="margin-bottom:16px;">Study Activity Logs</div>
+        <h2 style="font-family:'Syne',sans-serif; font-size:1.45rem; font-weight:800; color:var(--text); margin-bottom:20px;">학습 흔적 <span>타임라인</span></h2>
+        
+        <div class="timeline" style="position:relative; padding-left:24px; border-left:2px solid var(--border);">
+          
+          <div class="timeline-item" style="position:relative; margin-bottom:24px;">
+            <div class="timeline-dot" style="position:absolute; left:-31px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--bg-solid); box-shadow:0 0 8px var(--accent);"></div>
+            <div style="font-size:0.75rem; font-family:'Syne',sans-serif; color:var(--accent); font-weight:700;">WEEK 01 - 04</div>
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin:4px 0;">웹 프로그래밍 기초 & HTML5/CSS3 웹 표준 학습</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.6;">HTML5 시맨틱 마크업 가이드라인을 연구하고, CSS Flexbox/Grid 레이아웃 모델을 실습하며 반응형 웹 디자인의 기본 뼈대를 수립했습니다.</p>
+          </div>
+
+          <div class="timeline-item" style="position:relative; margin-bottom:24px;">
+            <div class="timeline-dot" style="position:absolute; left:-31px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--primary); border:2px solid var(--bg-solid); box-shadow:0 0 8px var(--primary);"></div>
+            <div style="font-size:0.75rem; font-family:'Syne',sans-serif; color:var(--primary); font-weight:700;">WEEK 05 - 08</div>
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin:4px 0;">Vanilla JavaScript Core & 인터랙션 DOM 제어</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.6;">이벤트 리스너, DOM API, Local Storage 데이터 조작 및 비동기 파티클 캔버스 효과를 다뤘습니다. 사이버 터미널 및 대시보드 리액티브 디자인에 직접 적용했습니다.</p>
+          </div>
+
+          <div class="timeline-item" style="position:relative; margin-bottom:24px;">
+            <div class="timeline-dot" style="position:absolute; left:-31px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--secondary); border:2px solid var(--bg-solid); box-shadow:0 0 8px var(--secondary);"></div>
+            <div style="font-size:0.75rem; font-family:'Syne',sans-serif; color:var(--secondary); font-weight:700;">WEEK 09 - 12</div>
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin:4px 0;">팀 프로젝트 'Web-Pedia v2' 협업 및 기말 기능 확장</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.6;">Git/GitHub 브랜치 전략을 사용해 4명의 팀원과 공동 백과사전 웹을 빌드하고, 최종 마일스톤인 '웹 보안 취약점 대화형 퀴즈 모듈'을 완벽하게 마쳤습니다.</p>
+          </div>
+
+          <div class="timeline-item" style="position:relative;">
+            <div class="timeline-dot" style="position:absolute; left:-31px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--success); border:2px solid var(--bg-solid); box-shadow:0 0 8px var(--success);"></div>
+            <div style="font-size:0.75rem; font-family:'Syne',sans-serif; color:var(--success); font-weight:700;">WEEK 13 - 15</div>
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin:4px 0;">독립형 보안 토이 프로젝트 2종 설계, 빌드 및 배포</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.6;">'SQL Injection Sandbox'와 'Secure Task Manager(암호화 투두리스트)' 2개의 완벽히 독립 배포 가능한 고품격 보안 웹앱을 직접 기획하고 배포에 성공했습니다.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 방명록(Guestbook) -->
+      <div class="card glow-card reveal" style="padding:36px;">
+        <div class="section-label" style="margin-bottom:16px;">SECURE FEEDBACK GATEWAY</div>
+        <h2 style="font-family:'Syne',sans-serif; font-size:1.45rem; font-weight:800; color:var(--text); margin-bottom:8px;">방명록 <span>(Guestbook)</span></h2>
+        <p style="color:var(--muted); font-size:0.85rem; margin-bottom:20px;">서버 커넥션 로그처럼 한 마디 남겨주세요. 입력 데이터는 로컬 스토리지에 즉시 동적 동기화됩니다.</p>
+        
+        <form class="guestbook-form" style="margin-bottom:24px;">
+          <div class="guestbook-row" style="margin-bottom:12px;">
+            <input type="text" class="guestbook-input guest-name-input" placeholder="성함 (Your Name)" required />
+            <button type="submit" class="guestbook-btn" style="cursor:pointer;"><i class="fas fa-paper-plane"></i> 전송 (Submit)</button>
+          </div>
+          <textarea class="guestbook-input guestbook-textarea guest-text-input" placeholder="로그 코멘트 남기기 (Write secure log message...)" required style="width:100%; height:90px; resize:none;"></textarea>
+        </form>
+
+        <div class="guestbook-list" style="display:flex; flex-direction:column; gap:12px; max-height:260px; overflow-y:auto;">
+          <!-- JS를 통해 guestbook-item 요소들이 여기에 생성됨 -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div>
+    <div class="footer-logo">chael2.dev</div>
+    <p>© 2026 함유진(chael2). All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/chael2" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://chael2.tistory.com/" target="_blank"><i class="fas fa-rss"></i></a>
+  </div>
+</footer>
+
+<script src="global.js"></script>
+</body>
+</html>

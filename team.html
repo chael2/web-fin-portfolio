@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team | chael2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="scan-line"></div>
+<div class="page-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- 내비게이션 -->
+<nav>
+  <div class="logo">chael2.dev</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="github.html">GitHub</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="team.html" class="active">Team</a></li>
+  </ul>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="blog.html">Blog</a>
+  <a href="github.html">GitHub</a>
+  <a href="projects.html">Projects</a>
+  <a href="team.html" class="active">Team</a>
+</div>
+
+<!-- 서브페이지 히어로 -->
+<div class="sub-hero">
+  <div class="sub-hero-inner">
+    <p class="section-label"><i class="fas fa-users"></i> &nbsp; Web-Pedia Team</p>
+    <h1>Meet Our <span style="background:linear-gradient(135deg,var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Team</span></h1>
+    <p>Web-Pedia 프로젝트를 함께 성실하게 설계하고 발전시켜 나가는 소중한 팀원들을 소개합니다.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-top:0">
+
+  <!-- 프로젝트 블루프린트 배너 -->
+  <div class="project-banner glow-card reveal" style="margin-bottom:50px; display:flex; align-items:center; gap:24px; padding:36px; border-radius:16px;">
+    <div class="project-banner-icon" style="width:64px; height:64px; border-radius:12px; background:rgba(16,185,129,0.12); display:flex; align-items:center; justify-content:center; color:var(--success); font-size:2rem; flex-shrink:0;">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <div class="project-banner-content" style="flex:1; min-width:260px;">
+      <span class="tag" style="background:rgba(16,185,129,0.12); border-color:rgba(16,185,129,0.25); color:var(--success);"><i class="fas fa-users"></i> Team Project Blueprint</span>
+      <h2 style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:var(--text); margin:8px 0;">Web-Pedia (웹피디아)</h2>
+      <p style="color:var(--muted); font-size:0.88rem; line-height:1.6; margin-bottom:16px;">웹 표준 문법과 시큐어 코딩 및 방어 기법들을 일관성 있게 계통화하고 다듬은 공동 백과사전 개발 산출물입니다.</p>
+      <div class="project-links" style="display:flex; gap:16px;">
+        <a href="https://github.com/chael2/web-mid-team" target="_blank" class="link-github" style="font-size:0.85rem; font-weight:600; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px;"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://web-mid-team.vercel.app/" target="_blank" class="link-demo" style="font-size:0.85rem; font-weight:600; color:var(--secondary); text-decoration:none; display:flex; align-items:center; gap:6px;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 팀원 소개 -->
+  <div class="section-label">Team Members</div>
+  <h2 class="section-title">4명의 <span>팀원</span></h2>
+
+  <div class="team-section" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px; margin-bottom:60px;">
+
+    <!-- 팀원 1: 함유진 -->
+    <div class="card member-card glow-card reveal" style="text-align:center; padding:32px;">
+      <div class="member-avatar" style="width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg,var(--secondary),var(--accent)); display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:white; font-size:1.8rem; box-shadow:0 0 15px rgba(217,70,239,0.35);">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700; margin-bottom:6px; color:var(--text)">함유진</h3>
+      <p class="member-role" style="font-size:0.85rem; font-weight:600; color:var(--secondary); margin-bottom:4px;">팀장</p>
+      <div class="member-links" style="display:flex; justify-content:center; gap:16px; font-size:1.15rem;">
+        <a href="https://github.com/chael2" target="_blank" title="GitHub" style="color:var(--muted); transition:color 0.2s;"><i class="fab fa-github"></i></a>
+        <a href="https://chael2.tistory.com/" target="_blank" title="Blog" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-rss"></i></a>
+        <a href="index.html" title="Portfolio" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-address-card"></i></a>
+      </div>
+    </div>
+
+    <!-- 팀원 2: 남유진 -->
+    <div class="card member-card glow-card reveal" style="text-align:center; padding:32px;">
+      <div class="member-avatar" style="width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg,#064e3b,#059669); display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:white; font-size:1.8rem;">
+        <i class="fas fa-user"></i>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700; margin-bottom:6px; color:var(--text)">남유진</h3>
+      <p class="member-role" style="font-size:0.85rem; font-weight:600; color:var(--success); margin-bottom:4px;">팀원 </p>
+      <div class="member-links" style="display:flex; justify-content:center; gap:16px; font-size:1.15rem;">
+        <a href="https://github.com/yoojin33" target="_blank" title="GitHub" style="color:var(--muted); transition:color 0.2s;"><i class="fab fa-github"></i></a>
+        <a href="https://blog.naver.com/quarter0330" target="_blank" title="Blog" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-rss"></i></a>
+        <a href="https://nyj03.vercel.app/" target="_blank" title="Portfolio" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-address-card"></i></a>
+      </div>
+    </div>
+
+    <!-- 팀원 3: 조윤아 -->
+    <div class="card member-card glow-card reveal" style="text-align:center; padding:32px;">
+      <div class="member-avatar" style="width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg,#1e3a5f,#2563eb); display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:white; font-size:1.8rem;">
+        <i class="fas fa-user"></i>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700; margin-bottom:6px; color:var(--text)">조윤서</h3>
+      <p class="member-role" style="font-size:0.85rem; font-weight:600; color:#3b82f6; margin-bottom:4px;">팀원 </p>
+
+      <div class="member-links" style="display:flex; justify-content:center; gap:16px; font-size:1.15rem;">
+        <a href="https://github.com/avac2613" target="_blank" title="GitHub" style="color:var(--muted); transition:color 0.2s;"><i class="fab fa-github"></i></a>
+        <a href="https://blog.naver.com/avac-ode2613" target="_blank" title="Blog" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-rss"></i></a>
+        <a href="https://midterm-portfolio-chi.vercel.app/" target="_blank" title="Portfolio" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-address-card"></i></a>
+      </div>
+    </div>
+
+    <!-- 팀원 4: 홍영우 -->
+    <div class="card member-card glow-card reveal" style="text-align:center; padding:32px;">
+      <div class="member-avatar" style="width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg,#4a1942,#be185d); display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:white; font-size:1.8rem;">
+        <i class="fas fa-user"></i>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700; margin-bottom:6px; color:var(--text)">홍영우</h3>
+      <p class="member-role" style="font-size:0.85rem; font-weight:600; color:#ec4899; margin-bottom:4px;">팀원</p>
+      <div class="member-links" style="display:flex; justify-content:center; gap:16px; font-size:1.15rem;">
+        <a href="https://github.com/hongwoo0516-commits" target="_blank" title="GitHub" style="color:var(--muted); transition:color 0.2s;"><i class="fab fa-github"></i></a>
+        <a href="https://blog.naver.com/youngwoo0405" target="_blank" title="Blog" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-rss"></i></a>
+        <a href="https://team1-eight.vercel.app/" target="_blank" title="Portfolio" style="color:var(--muted); transition:color 0.2s;"><i class="fas fa-address-card"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 개발 과정 타임라인 -->
+  <div style="margin-top:70px">
+    <div class="section-label">Development Timeline</div>
+    <h2 class="section-title">개발 <span>과정</span></h2>
+    <div style="display:flex; flex-direction:column; gap:0;">
+
+      <!-- Step 1 -->
+      <div class="reveal" style="display:flex; gap:32px; padding-bottom:36px; position:relative;">
+        <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+          <div style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--secondary),var(--accent)); display:flex; align-items:center; justify-content:center; font-size:.9rem; z-index:2; position:relative; flex-shrink:0; color:white; font-weight:700; box-shadow:0 0 10px rgba(217,70,239,0.3);">1</div>
+          <div style="flex:1; width:2px; background:var(--border); margin-top:8px;"></div>
+        </div>
+        <div class="card glow-card" style="flex:1; padding:24px; margin-top:0;">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:8px; color:var(--text)">기획 &amp; 설계</div>
+          <p style="font-size:.88rem; color:var(--muted); line-height:1.6;">팀 구성 및 프로젝트 주제 선정. 웹 표준과 보안이 결합된 백과사전식 사이트 기획. 역할 분담 및 와이어프레임 작성 완료.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="reveal" style="display:flex; gap:32px; padding-bottom:36px; position:relative;">
+        <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+          <div style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--secondary),var(--accent)); display:flex; align-items:center; justify-content:center; font-size:.9rem; z-index:2; position:relative; flex-shrink:0; color:white; font-weight:700; box-shadow:0 0 10px rgba(217,70,239,0.3);">2</div>
+          <div style="flex:1; width:2px; background:var(--border); margin-top:8px;"></div>
+        </div>
+        <div class="card glow-card" style="flex:1; padding:24px;">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:8px; color:var(--text)">중간 발표 (Mid-Term)</div>
+          <p style="font-size:.88rem; color:var(--muted); line-height:1.6;">HTML5/CSS3 기반 기초 구조 완성. 반응형 레이아웃 구현. 웹 표준 문법 콘텐츠 작성. GitHub을 통한 성실한 협업 진행.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 (기말 퀴즈 및 리뉴얼 반영) -->
+      <div class="reveal" style="display:flex; gap:32px;">
+        <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+          <div style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--secondary),var(--accent)); display:flex; align-items:center; justify-content:center; font-size:.9rem; z-index:2; position:relative; flex-shrink:0; color:white; font-weight:700; box-shadow:0 0 10px rgba(217,70,239,0.3);">3</div>
+        </div>
+        <div class="card glow-card" style="flex:1; padding:24px; border-color:var(--secondary);">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:8px; color:var(--text)">기말 발표 (Final) 및 사이트 리뉴얼</div>
+          <p style="font-size:.88rem; color:var(--muted); line-height:1.6;">보안 취약점 백과사전 안내 완성 및 대대적인 사이트 전체 퍼플 디자인 리뉴얼 탑재. Vercel 최종 퀴즈 및 개별 포트폴리오 안전 배포 완료.</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div>
+    <div class="footer-logo">chael2.dev</div>
+    <p>© 2026 함유진(chael2). All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/chael2" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://chael2.tistory.com/" target="_blank"><i class="fas fa-rss"></i></a>
+  </div>
+</footer>
+
+<script src="global.js"></script>
+</body>
+</html>

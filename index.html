@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chael2 · Portfolio Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- 가상 스캔라인 -->
+<div class="scan-line"></div>
+
+<div class="page-progress"></div>
+
+<!-- 다이내믹 네트워크 노드 배경 -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- 내비게이션 -->
+<nav>
+  <div class="logo">chael2.dev</div>
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="github.html">GitHub</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="team.html">Team</a></li>
+  </ul>
+  <button class="hamburger" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="blog.html">Blog</a>
+  <a href="github.html">GitHub</a>
+  <a href="projects.html">Projects</a>
+  <a href="team.html">Team</a>
+</div>
+
+<!-- 히어로 영역 -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-layout">
+      <!-- 히어로 프로필 (텍스트 소개) -->
+      <div class="hero-content">
+        <p class="hero-eyebrow"><i class="fas fa-shield-halved"></i> &nbsp;Information Security Student</p>
+        <h1>
+          <span class="line">안녕하세요</span>
+          <span class="line gradient-text">함유진입니다</span>
+        </h1>
+        <p class="hero-desc">
+          정보보호학을 전공하는 미래의 보안 전문가. 악성코드 분석과 취약점 분석, 그리고 안전하고 단단한 보안 생태계를 구축하기 위해 오늘도 굴러갑니다.
+          <br><br>
+          <span class="typing-text" data-words='["정보보호학 전공자", "보안 취약점 분석가", "시큐어 코딩 매니아", "CTF 화이트해커 지망생"]'></span>
+        </p>
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary"><i class="fas fa-laptop-code"></i> 프로젝트 분석</a>
+          <a href="about.html"    class="btn btn-ghost"><i class="fas fa-user-shield"></i> 소개 보기</a>
+        </div>
+        <div class="hero-social">
+          <a href="https://github.com/chael2"   target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://chael2.tistory.com/" target="_blank" title="Blog"><i class="fas fa-rss"></i></a>
+          <a href="mailto:chael2@security.ac.kr"   title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <!-- 히어로 라이트 (작동식 시큐리티 CLI 터미널) -->
+      <div class="cyber-terminal">
+        <div class="terminal-header">
+          <div class="terminal-buttons">
+            <span class="terminal-btn red"></span>
+            <span class="terminal-btn yellow"></span>
+            <span class="terminal-btn green"></span>
+          </div>
+          <span class="terminal-title">chael2@security-shell: ~</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-input-line">
+            <span class="terminal-prompt">chael2.dev $</span>
+            <input type="text" class="terminal-cli-input" placeholder="Type a command..." autofocus />
+            <span class="terminal-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="padding-top:0">
+
+  <div class="section-label">Command Center</div>
+  <h2 class="section-title">Security <span>Overview</span></h2>
+
+  <!-- 비주얼 벤토 그리드 네비게이션 -->
+  <div class="bento-grid">
+    
+    <!-- About Me: span-2 -->
+    <div class="bento-item span-2 glow-card reveal">
+      <a href="about.html" class="hub-card">
+        <div>
+          <div class="hub-icon"><i class="fas fa-user-shield"></i></div>
+          <h3>About Me</h3>
+          <p>정보보호 전공자 함유진의 상세한 핵심 관심사(악성코드 분석, 리눅스 및 보안)와 핵심 기술 스택을 확인해보세요.</p>
+        </div>
+        <div class="hub-arrow">프로필 스캔하기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+
+    <!-- Tistory Blog: span-2 -->
+    <div class="bento-item span-2 glow-card reveal">
+      <a href="blog.html" class="hub-card">
+        <div>
+          <div class="hub-icon" style="background:rgba(217,70,239,0.15); border-color:var(--secondary);"><i class="fas fa-rss" style="color:var(--secondary);"></i></div>
+          <h3>Study Notes (Tistory)</h3>
+          <p>리눅스 기초 학습, RCity 문제 풀이(CTF), VMware 설치 가이드 등 배운 것을 상세히 가공하여 채워나가는 기술 기록소입니다.</p>
+        </div>
+        <div class="hub-arrow">분석 로그 열기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+
+    <!-- GitHub Profile: span-1 -->
+    <div class="bento-item glow-card reveal">
+      <a href="github.html" class="hub-card">
+        <div>
+          <div class="hub-icon" style="background:rgba(6,182,212,0.15); border-color:var(--accent);"><i class="fab fa-github" style="color:var(--accent);"></i></div>
+          <h3>GitHub logs</h3>
+          <p>오픈소스 코드 저장소 활동 및 기여 잔디 현황.</p>
+        </div>
+        <div class="hub-arrow">레포 스캔 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+
+    <!-- Projects: span-2 -->
+    <div class="bento-item span-2 glow-card reveal">
+      <a href="projects.html" class="hub-card">
+        <div>
+          <div class="hub-icon"><i class="fas fa-folder-open"></i></div>
+          <h3>Web Assignments</h3>
+          <p>웹 프로그래밍 과제들의 데모와 상세 분석을 다룹니다. 반응형 설계, JS 연습 등 공부 흔적 수록.</p>
+        </div>
+        <div class="hub-arrow">아카이브 분석 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+
+    <!-- Team: span-1 -->
+    <div class="bento-item glow-card reveal">
+      <a href="team.html" class="hub-card">
+        <div>
+          <div class="hub-icon" style="background:rgba(16,185,129,0.15); border-color:var(--success);"><i class="fas fa-users" style="color:var(--success);"></i></div>
+          <h3>Co-Ops</h3>
+          <p>Web-Pedia를 함께 구축한 4명의 정예 팀원 소개 카드.</p>
+        </div>
+        <div class="hub-arrow">팀원 조회 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+
+    <!-- Team Project: span-4 -->
+    <div class="bento-item span-4 glow-card reveal">
+      <a href="https://github.com/chael2/web-mid-team" target="_blank" class="hub-card">
+        <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:16px;">
+          <div style="max-width:700px;">
+            <div class="tag" style="margin-bottom:12px;"><i class="fas fa-shield-halved"></i> Mission Project</div>
+            <h3>Core Product: Web-Pedia (웹 표준 및 보안 가이드 백과사전)</h3>
+            <p>HTML5와 CSS3 반응형 기술을 활용해 전공 지식을 체계적으로 다듬어 완성한 공동 산출물입니다. 팀원 4명의 협력 레포지토리 주소와 직접 안전한 샌드박스 게이트웨이로 연결합니다.</p>
+          </div>
+          <div class="hub-icon" style="width:56px; height:56px;"><i class="fas fa-shield-alt" style="font-size:1.6rem;"></i></div>
+        </div>
+        <div class="hub-arrow" style="margin-top:16px;">팀 깃허브 저장소 열기 <i class="fas fa-external-link-alt"></i></div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div>
+    <div class="footer-logo">chael2.dev</div>
+    <p>© 2026 함유진(chael2). All rights reserved. [Secured with SSL]</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/chael2"   target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://chael2.tistory.com/" target="_blank"><i class="fas fa-rss"></i></a>
+    <a href="mailto:yourmail@email.com"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+<!-- 리소스 로딩 -->
+<script src="global.js"></script>
+<script src="js/terminal.js"></script>
+</body>
+</html>

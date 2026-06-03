@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | chael2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="scan-line"></div>
+<div class="page-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- 내비게이션 -->
+<nav>
+  <div class="logo">chael2.dev</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="github.html">GitHub</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="team.html">Team</a></li>
+  </ul>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="blog.html" class="active">Blog</a>
+  <a href="github.html">GitHub</a>
+  <a href="projects.html">Projects</a>
+  <a href="team.html">Team</a>
+</div>
+
+<!-- 서브페이지 히어로 -->
+<div class="sub-hero">
+  <div class="sub-hero-inner">
+    <p class="section-label"><i class="fas fa-rss"></i> &nbsp; Tistory Blog</p>
+    <h1>감자의 <span style="background:linear-gradient(135deg,var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">떼굴떼굴</span>굴러가는 블로그</h1>
+    <p>배운 것을 내 것으로 만들기 위한 기술 기록 저장소입니다.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-top:0">
+
+  <!-- 블로그 배너 -->
+  <div class="card glow-card reveal" style="padding:36px; margin-bottom:40px; display:flex; align-items:center; justify-content:between; gap:24px; flex-wrap:wrap">
+    <div style="flex:1; min-width:280px;">
+      <div class="section-label" style="margin-bottom:8px">chael2.tistory.com</div>
+      <h2 style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--text); margin-bottom:8px">감자의 떼굴떼굴 굴러가는 블로그 </span></h2>
+      <p style="color:var(--muted); font-size:.9rem">보안, Linux, 웹 개발에 대해 직접 공부하고 체득한 기술 지식 로그를 꾸준히 작성하고 있습니다.</p>
+    </div>
+    <a href="https://chael2.tistory.com/" target="_blank" class="btn btn-primary" style="cursor:pointer;">
+      <i class="fas fa-external-link-alt"></i> 블로그 방문하기
+    </a>
+  </div>
+
+  <!-- 카테고리 필터 매트릭스 정렬 UI -->
+  <div class="section-label">Categories</div>
+  <h2 class="section-title">블로그 <span>카테고리</span></h2>
+  
+  <div class="grid-3" style="margin-bottom:50px;">
+    <div class="card glow-card reveal" style="padding:28px; display:flex; align-items:center; gap:16px">
+      <div style="width:48px; height:48px; border-radius:12px; background:rgba(251,191,36,.1); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:1.2rem; flex-shrink:0"><i class="fab fa-linux"></i></div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:2px">Linux</div>
+        <div style="font-size:.82rem; color:var(--muted)">시스템 명령어, SSH, 파일 시스템</div>
+      </div>
+    </div>
+    <div class="card glow-card reveal" style="padding:28px; display:flex; align-items:center; gap:16px">
+      <div style="width:48px; height:48px; border-radius:12px; background:rgba(217,70,239,.1); display:flex; align-items:center; justify-content:center; color:var(--secondary); font-size:1.2rem; flex-shrink:0"><i class="fas fa-shield-halved"></i></div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:2px">Security / CTF</div>
+        <div style="font-size:.82rem; color:var(--muted)">보안 문제 풀이, 취약점 분석</div>
+      </div>
+    </div>
+    <div class="card glow-card reveal" style="padding:28px; display:flex; align-items:center; gap:16px">
+      <div style="width:48px; height:48px; border-radius:12px; background:rgba(124,58,237,.1); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:1.2rem; flex-shrink:0"><i class="fas fa-terminal"></i></div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-weight:700; margin-bottom:2px">Kali Linux</div>
+        <div style="font-size:.82rem; color:var(--muted)">모의해킹 환경 구축, VMware</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 최신 포스트 -->
+  <div class="section-label">Latest Posts</div>
+  <h2 class="section-title">최신 <span>포스트</span></h2>
+
+  <div class="grid-3">
+
+    <!-- 포스트 1 -->
+    <div class="card blog-card glow-card reveal" style="padding:0; overflow:hidden;">
+      <div class="blog-thumb" style="height:170px; overflow:hidden;">
+        <img src="image/blog3.jpg" alt="SSH 접속하기" onerror="this.parentElement.style.background='linear-gradient(135deg,var(--secondary),var(--accent))';this.style.display='none'" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="card-inner" style="padding:24px;">
+        <span class="tag" style="background:rgba(251,191,36,.12); border-color:rgba(251,191,36,.25); color:var(--gold);"><i class="fab fa-linux"></i> Linux</span>
+        <h3 style="font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700; margin:12px 0 8px 0; color:var(--text)">[Linux] SSH 접속하기</h3>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:16px;">SSH(Secure Shell)를 사용하여 원격 서버에 안전하게 접속하는 방법과 기초 명령어들을 정리했습니다.</p>
+        <a href="https://chael2.tistory.com/5" target="_blank" class="read-more" style="font-size:0.85rem; font-weight:600; color:var(--secondary); text-decoration:none; display:flex; align-items:center; gap:6px;">글 읽으러 가기 <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- 포스트 2 -->
+    <div class="card blog-card glow-card reveal" style="padding:0; overflow:hidden;">
+      <div class="blog-thumb" style="height:170px; overflow:hidden;">
+        <img src="image/blog1.png" alt="Operation RCity0" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0533,#3d0b6e)';this.style.display='none'" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="card-inner" style="padding:24px;">
+        <span class="tag" style="background:rgba(217,70,239,.15); border-color:rgba(217,70,239,.3); color:var(--secondary);"><i class="fas fa-flag"></i> CTF / Linux</span>
+        <h3 style="font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700; margin:12px 0 8px 0; color:var(--text)">[Linux/RCity] Operation RCity0</h3>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:16px;">레드플래그 RCity0 Linux 문제 풀이. 리눅스 명령어와 파일 시스템 구조를 활용한 문제 해결 과정.</p>
+        <a href="https://chael2.tistory.com/6" target="_blank" class="read-more" style="font-size:0.85rem; font-weight:600; color:var(--secondary); text-decoration:none; display:flex; align-items:center; gap:6px;">글 읽으러 가기 <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- 포스트 3 -->
+    <div class="card blog-card glow-card reveal" style="padding:0; overflow:hidden;">
+      <div class="blog-thumb" style="height:170px; overflow:hidden;">
+        <img src="image/blog2.png" alt="Kali Linux 설치" onerror="this.parentElement.style.background='linear-gradient(135deg,#0d1117,#2d0b6e)';this.style.display='none'" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="card-inner" style="padding:24px;">
+        <span class="tag" style="background:rgba(124,58,237,.15); border-color:rgba(124,58,237,.3); color:var(--accent);"><i class="fas fa-terminal"></i> Kali Linux</span>
+        <h3 style="font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700; margin:12px 0 8px 0; color:var(--text)">[Kali Linux] VMware에 설치하기</h3>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:16px;">Kali Linux를 VMware에 설치하는 방법과 초기 보안 설정에 대하여 핵심 내용을 정리했습니다.</p>
+        <a href="https://chael2.tistory.com/3" target="_blank" class="read-more" style="font-size:0.85rem; font-weight:600; color:var(--secondary); text-decoration:none; display:flex; align-items:center; gap:6px;">글 읽으러 가기 <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div>
+    <div class="footer-logo">chael2.dev</div>
+    <p>© 2026 함유진(chael2). All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/chael2" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://chael2.tistory.com/" target="_blank"><i class="fas fa-rss"></i></a>
+  </div>
+</footer>
+
+<script src="global.js"></script>
+</body>
+</html>

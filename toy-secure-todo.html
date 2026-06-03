@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Task Manager | chael2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* == Cyber Shield Purple 테마 군사 작전판 스타일 == */
+    :root {
+      --bg: #05010d;
+      --surface: rgba(14, 7, 31, 0.75);
+      --border: rgba(147, 51, 234, 0.25);
+      --border-glow: rgba(217, 70, 239, 0.45);
+      --primary: #9333ea;
+      --secondary: #d946ef;
+      --accent: #06b6d4;
+      --text: #f3f0ff;
+      --muted: #8c82a6;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
+      --r: 12px;
+      --shadow: 0 8px 32px 0 rgba(147, 51, 234, 0.12);
+      --ease: cubic-bezier(.25, .8, .25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 50%, #0c041c 0%, #05010d 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* 사이버 그리드 효과 */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(147, 51, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(147, 51, 234, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 헤더 */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, var(--text) 30%, var(--secondary) 70%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .brand::before { content: '['; color: var(--accent); }
+    .brand::after { content: ']'; color: var(--secondary); }
+    
+    .nav-back {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+    .nav-back:hover {
+      color: var(--secondary);
+      transform: translateX(-4px);
+    }
+
+    .app-title-section {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .app-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--secondary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .app-title-section h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .app-title-section h1 span {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 암호화 키 게이트 (키 미입력 상태 화면) */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .shield-gate {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .shield-icon {
+      font-size: 4rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(217,70,239,0.3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    .shield-gate p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 450px;
+      margin-left: auto; margin-right: auto;
+    }
+    .gate-input-wrapper {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 10px;
+    }
+    .input-key {
+      flex: 1;
+      background: rgba(10, 4, 25, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      outline: none;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .input-key:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 8px rgba(217,70,239,0.2);
+    }
+    .btn-key {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0 24px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-key:hover {
+      box-shadow: 0 0 12px var(--secondary);
+    }
+
+    /* 통제 대시보드 구조 */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 850px) {
+      .dashboard-layout { grid-template-columns: 1fr; }
+    }
+
+    /* 대시보드 통계 바 */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      background: rgba(14, 7, 31, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* 일정 추가 폼 */
+    .todo-form-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .input-field {
+      width: 100%;
+      background: rgba(10, 4, 25, 0.6);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .input-field:focus { border-color: var(--accent); }
+    .select-field {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-action {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 0;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    .btn-action:hover {
+      box-shadow: 0 0 10px var(--secondary);
+    }
+
+    /* 암호화 로그 뷰어 */
+    .encrypt-viewer {
+      background: #070312;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      height: 120px;
+      overflow-y: auto;
+      color: var(--secondary);
+      word-break: break-all;
+    }
+
+    /* 할 일 리스트 */
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .list-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-logout:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .todo-list-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .todo-item {
+      background: rgba(147, 51, 234, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      transition: all 0.3s;
+    }
+    .todo-item:hover {
+      border-color: var(--border-glow);
+      transform: translateX(2px);
+    }
+    .todo-item.completed {
+      opacity: 0.55;
+      background: rgba(16, 185, 129, 0.02);
+    }
+
+    .todo-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* 커스텀 체크박스 */
+    .checkbox-container {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      width: 18px; height: 18px;
+    }
+    .checkbox-container input {
+      position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;
+    }
+    .checkmark {
+      position: absolute; top: 0; left: 0;
+      height: 18px; width: 18px;
+      background-color: transparent;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .checkbox-container:hover input ~ .checkmark {
+      border-color: var(--secondary);
+    }
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: var(--success);
+      border-color: var(--success);
+    }
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    .checkbox-container input:checked ~ .checkmark::after {
+      display: block;
+    }
+    .checkbox-container .checkmark::after {
+      left: 5px; top: 1px;
+      width: 5px; height: 9px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .todo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .todo-text {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .todo-item.completed .todo-text {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+    .todo-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .todo-badge {
+      font-size: 0.65rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+    }
+    .badge-dev { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.2); color: var(--accent); }
+    .badge-sec { background: rgba(217,70,239,0.12); border: 1px solid rgba(217,70,239,0.2); color: var(--secondary); }
+    .badge-ops { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.2); color: var(--warning); }
+    .badge-gen { background: rgba(147,51,234,0.12); border: 1px solid rgba(147,51,234,0.2); color: var(--primary); }
+
+    .urgency-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+    }
+    .urgency-indicator::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .urgency-high { color: var(--danger); }
+    .urgency-high::before { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+    .urgency-medium { color: var(--warning); }
+    .urgency-medium::before { background: var(--warning); }
+    .urgency-low { color: var(--success); }
+    .urgency-low::before { background: var(--success); }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: color 0.3s;
+      padding: 6px;
+    }
+    .btn-delete:hover { color: var(--danger); }
+
+    /* 미니 CLI 프롬프트 */
+    .mini-console {
+      background: #070312;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      margin-top: 24px;
+      box-shadow: var(--shadow);
+    }
+    .console-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .console-prompt { color: var(--accent); }
+    .console-field {
+      background: none; border: none; outline: none;
+      color: var(--secondary); font-family: inherit; font-size: inherit;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- 상단 내비게이션 -->
+  <header>
+    <div class="brand">chael2.dev // Secure Todo</div>
+    <a href="projects.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+  </header>
+
+  <!-- 메인 헤드라인 -->
+  <div class="app-title-section">
+    <div class="app-label">Secure Cryptographic Application</div>
+    <h1>Secure <span>Task Manager &amp; Commander</span></h1>
+  </div>
+
+  <!-- 게이트 쉴드 카드 (인증/키 보안 영역) -->
+  <div class="card shield-gate" id="shieldGateCard">
+    <div class="shield-icon"><i class="fas fa-user-shield"></i></div>
+    <h2 style="font-family:'Syne',sans-serif; font-size:1.35rem; font-weight:800; margin-bottom:8px;">Access Authentication Gate</h2>
+    <p>본 작전 대시보드는 암호화 상태로 격리되어 있습니다. 본인 소유의 <strong>시큐리티 엑세스 키(Access Key)</strong>를 입력하여 내부 일정을 복호화하십시오.</p>
+    
+    <div class="gate-input-wrapper">
+      <input type="password" class="input-key" id="accessKeyInput" placeholder="Enter Access Key..." autofocus />
+      <button class="btn-key" id="btnUnlock"><i class="fas fa-unlock"></i> Unlock</button>
+    </div>
+    <div style="font-size:0.75rem; color:var(--muted); margin-top:14px; font-family:'Fira Code',monospace;">[+] Local Storage DB status: Encrypted / Secure</div>
+  </div>
+
+  <!-- 실제 대시보드 내용 (인증 후 잠금 해제됨, 기본 숨김) -->
+  <div id="dashboardContainer" style="display:none;">
+    
+    <!-- 통계 정보 바 -->
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">TOTAL MISSIONS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="statPending" style="color:var(--warning)">0</div>
+        <div class="stat-label">PENDING LOGS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="statCompleted" style="color:var(--success)">0</div>
+        <div class="stat-label">COMPLETED</div>
+      </div>
+    </div>
+
+    <div class="dashboard-layout">
+      
+      <!-- 왼쪽 할 일 일정 리스트 카드 -->
+      <div class="card" style="padding:24px 30px;">
+        <div class="list-header">
+          <div class="list-title"><i class="fas fa-clipboard-list" style="color:var(--secondary)"></i> Active Operations</div>
+          <button class="btn-logout" id="btnLogout"><i class="fas fa-lock"></i> Lock DB</button>
+        </div>
+
+        <div class="todo-list-wrapper" id="todoListWrapper">
+          <!-- JS 템플릿으로 바인딩됨 -->
+        </div>
+      </div>
+
+      <!-- 오른쪽 임무 추가 & 암호화 로그 뷰어 카드 -->
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        
+        <!-- 일정 추가 카드 -->
+        <div class="card" style="padding:24px 30px;">
+          <div class="list-title" style="margin-bottom:16px;"><i class="fas fa-plus" style="color:var(--accent)"></i> Register New Operation</div>
+          
+          <div class="todo-form-card">
+            <input type="text" class="input-field" id="todoTextInput" placeholder="Operation task description..." required />
+            
+            <div class="form-row">
+              <select class="input-field select-field" id="todoCategorySelect">
+                <option value="DEV">DEV (웹 개발 실습)</option>
+                <option value="SEC">SEC (시스템 보안)</option>
+                <option value="OPS">OPS (리눅스 인프라)</option>
+                <option value="GEN">GEN (기타/개인)</option>
+              </select>
+              <select class="input-field select-field" id="todoUrgencySelect">
+                <option value="HIGH">HIGH (네온 레드)</option>
+                <option value="MID">MEDIUM (네온 골드)</option>
+                <option value="LOW">LOW (네온 그린)</option>
+              </select>
+            </div>
+            
+            <input type="date" class="input-field" id="todoDateInput" />
+            
+            <button class="btn-action" id="btnAddTask"><i class="fas fa-shield-halved"></i> Add Secure Task</button>
+          </div>
+        </div>
+
+        <!-- 실시간 암호화 패킷 모니터 카드 -->
+        <div class="card" style="padding:24px 30px;">
+          <div class="list-title" style="margin-bottom:10px;"><i class="fas fa-shield-halved" style="color:var(--secondary)"></i> Saved Cryptographic Payload</div>
+          <p style="font-size:0.75rem; color:var(--muted); margin-bottom:14px;">로컬 스토리지에 격리 저장된 암호화 헥스 텍스트 원본 로그입니다.</p>
+          <div class="encrypt-viewer" id="encryptViewer">
+            [+] SECURE COMPILING READY.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 미니 CLI 상황판 터미널 -->
+    <div class="mini-console">
+      <div style="color:var(--accent); font-weight:700;">chael2@ops-terminal: ~ (Secure Command Gateway)</div>
+      <div style="color:var(--muted); font-size:0.72rem; margin-top:2px;">[add &lt;내용&gt;] [del &lt;번호&gt;] [clear] 명령어로 간편 통제 가능</div>
+      <div class="console-input-row">
+        <span class="console-prompt">todo-shell $</span>
+        <input type="text" class="console-field" id="consoleInput" placeholder="Type a task command..." />
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  let accessKey = "";
+  let todoItems = [];
+
+  const shieldGateCard = document.getElementById('shieldGateCard');
+  const dashboardContainer = document.getElementById('dashboardContainer');
+  const accessKeyInput = document.getElementById('accessKeyInput');
+  const btnUnlock = document.getElementById('btnUnlock');
+  const btnLogout = document.getElementById('btnLogout');
+
+  const todoTextInput = document.getElementById('todoTextInput');
+  const todoCategorySelect = document.getElementById('todoCategorySelect');
+  const todoUrgencySelect = document.getElementById('todoUrgencySelect');
+  const todoDateInput = document.getElementById('todoDateInput');
+  const btnAddTask = document.getElementById('btnAddTask');
+  
+  const todoListWrapper = document.getElementById('todoListWrapper');
+  const encryptViewer = document.getElementById('encryptViewer');
+  const consoleInput = document.getElementById('consoleInput');
+
+  // 통계 요소
+  const statTotal = document.getElementById('statTotal');
+  const statPending = document.getElementById('statPending');
+  const statCompleted = document.getElementById('statCompleted');
+
+  // 기본 마감기한 설정 (오늘 날짜)
+  const today = new Date().toISOString().split('T')[0];
+  todoDateInput.value = today;
+
+  // 1. 잠금 해제 검증 이벤트
+  btnUnlock.addEventListener('click', attemptUnlock);
+  accessKeyInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') attemptUnlock();
+  });
+
+  function attemptUnlock() {
+    const key = accessKeyInput.value.trim();
+    if (!key) return;
+
+    accessKey = key;
+    shieldGateCard.style.display = 'none';
+    dashboardContainer.style.display = 'block';
+    
+    // 데이터 불러오기 및 복호화
+    loadAndDecryptData();
+    renderTasks();
+    accessKeyInput.value = '';
+  }
+
+  // 2. 잠금 잠그기 이벤트
+  btnLogout.addEventListener('click', () => {
+    accessKey = "";
+    todoItems = [];
+    dashboardContainer.style.display = 'none';
+    shieldGateCard.style.display = 'block';
+    accessKeyInput.focus();
+  });
+
+  // 3. 할 일 일정 등록 이벤트
+  btnAddTask.addEventListener('click', addNewTask);
+  
+  function addNewTask() {
+    const text = todoTextInput.value.trim();
+    if (!text) return;
+
+    const cat = todoCategorySelect.value;
+    const urgency = todoUrgencySelect.value;
+    const date = todoDateInput.value;
+
+    const newItem = {
+      id: Date.now(),
+      text: text,
+      category: cat,
+      urgency: urgency,
+      date: date || today,
+      completed: false
+    };
+
+    todoItems.unshift(newItem);
+    todoTextInput.value = '';
+    
+    saveAndEncryptData();
+    renderTasks();
+  }
+
+  // 4. 데이터 암호화 저장소 제어 (간단한 XOR + Base64 기법)
+  function saveAndEncryptData() {
+    if (!accessKey) return;
+    
+    const plainString = JSON.stringify(todoItems);
+    const encryptedString = xorEncryptDecrypt(plainString, accessKey);
+    
+    localStorage.setItem('secure_todo_payload', encryptedString);
+    encryptViewer.innerText = encryptedString;
+  }
+
+  // 5. 데이터 로드 및 복호화
+  function loadAndDecryptData() {
+    const encryptedData = localStorage.getItem('secure_todo_payload');
+    if (!encryptedData) {
+      // 데이터 없는 경우 예시 데이터 바인딩
+      todoItems = [
+        { id: 101, text: '포트폴리오 모바일 반응형 전수 검사하기', category: 'DEV', urgency: 'HIGH', date: today, completed: false },
+        { id: 102, text: '기말 팀 과제 Web-Pedia v2 병합 및 퀴즈 구동 테스트', category: 'SEC', urgency: 'MID', date: today, completed: true },
+        { id: 103, text: '로컬스토리지 방명록 XSS 취약성 방어 검수', category: 'SEC', urgency: 'HIGH', date: today, completed: false }
+      ];
+      saveAndEncryptData();
+      return;
+    }
+
+    try {
+      const decryptedString = xorEncryptDecrypt(encryptedData, accessKey);
+      todoItems = JSON.parse(decryptedString);
+      encryptViewer.innerText = encryptedData;
+    } catch(e) {
+      console.error('[SECURITY ERROR] Decryption failed. Incorrect key or damaged database.', e);
+      encryptViewer.innerText = "[⚠️ CRITICAL ALERT] DECRYPTION MODULE CORRUPTED. INCORRECT KEY.";
+      todoItems = [];
+    }
+  }
+
+  // XOR 암호화/복호화 알고리즘
+  function xorEncryptDecrypt(input, key) {
+    let output = "";
+    for (let i = 0; i < input.length; i++) {
+      const c = input.charCodeAt(i);
+      const k = key.charCodeAt(i % key.length);
+      output += String.fromCharCode(c ^ k);
+    }
+    // 특수문자 및 공백 보호를 위해 가볍게 Base64 인코딩/디코딩 변조
+    try {
+      return btoa(unescape(encodeURIComponent(output)));
+    } catch(e) {
+      // 오류 상황 시 역변환
+      return btoa(output);
+    }
+  }
+
+  // 6. UI 일정 렌더링
+  function renderTasks() {
+    todoListWrapper.innerHTML = '';
+    
+    let total = todoItems.length;
+    let completed = 0;
+
+    if (total === 0) {
+      todoListWrapper.innerHTML = `
+        <div style="text-align:center; color:var(--muted); padding:30px; font-size:0.83rem;">[+] SECURE LOGS EMPTY. 새 작전 지시 사항을 기록하세요.</div>
+      `;
+    }
+
+    todoItems.forEach((task, idx) => {
+      if (task.completed) completed++;
+
+      const item = document.createElement('div');
+      item.className = `todo-item ${task.completed ? 'completed' : ''}`;
+      
+      const badgeClass = `badge-${task.category.toLowerCase()}`;
+      const urgencyClass = `urgency-${task.urgency.toLowerCase()}`;
+
+      item.innerHTML = `
+        <div class="todo-main">
+          <label class="checkbox-container">
+            <input type="checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}" class="check-toggle" />
+            <span class="checkmark"></span>
+          </label>
+          <div class="todo-content">
+            <div class="todo-text">${escapeHtml(task.text)}</div>
+            <div class="todo-meta">
+              <span class="todo-badge ${badgeClass}">${task.category}</span>
+              <span class="urgency-indicator ${urgencyClass}">${task.urgency}</span>
+              <span><i class="far fa-calendar"></i> ${task.date}</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-delete" data-id="${task.id}"><i class="fas fa-trash-alt"></i></button>
+      `;
+      todoListWrapper.appendChild(item);
+    });
+
+    // 통계 동기화
+    statTotal.innerText = total;
+    statCompleted.innerText = completed;
+    statPending.innerText = total - completed;
+
+    // 이벤트 리바인딩
+    document.querySelectorAll('.check-toggle').forEach(chk => {
+      chk.addEventListener('change', (e) => {
+        const id = parseInt(e.target.dataset.id);
+        toggleTaskCompletion(id);
+      });
+    });
+
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const button = e.target.closest('.btn-delete');
+        const id = parseInt(button.dataset.id);
+        deleteTask(id);
+      });
+    });
+  }
+
+  // 상태 토글
+  function toggleTaskCompletion(id) {
+    const task = todoItems.find(t => t.id === id);
+    if (task) {
+      task.completed = !task.completed;
+      saveAndEncryptData();
+      renderTasks();
+    }
+  }
+
+  // 삭제
+  function deleteTask(id) {
+    todoItems = todoItems.filter(t => t.id !== id);
+    saveAndEncryptData();
+    renderTasks();
+  }
+
+  // HTML 이스케이프
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  // 7. 미니 CLI 콘솔 입력 명령어 처리
+  consoleInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const command = consoleInput.value.trim();
+      consoleInput.value = '';
+      if (!command) return;
+
+      processConsoleCommand(command);
+    }
+  });
+
+  function processConsoleCommand(command) {
+    const parts = command.split(' ');
+    const action = parts[0].toLowerCase();
+    const arg = parts.slice(1).join(' ');
+
+    if (action === 'add') {
+      if (!arg) {
+        alert("Usage: add <task text>");
+        return;
+      }
+      const newItem = {
+        id: Date.now(),
+        text: arg,
+        category: 'DEV',
+        urgency: 'MID',
+        date: today,
+        completed: false
+      };
+      todoItems.unshift(newItem);
+      saveAndEncryptData();
+      renderTasks();
+    } else if (action === 'del') {
+      const index = parseInt(arg);
+      if (isNaN(index) || index < 1 || index > todoItems.length) {
+        alert("Usage: del <number (1 ~ " + todoItems.length + ")>");
+        return;
+      }
+      todoItems.splice(index - 1, 1);
+      saveAndEncryptData();
+      renderTasks();
+    } else if (action === 'clear') {
+      todoItems = [];
+      saveAndEncryptData();
+      renderTasks();
+    } else {
+      alert("Unknown command. Use: [add <text>], [del <num>], [clear]");
+    }
+  }
+</script>
+</body>
+</html>
